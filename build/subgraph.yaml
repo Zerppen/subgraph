@@ -1,0 +1,37 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: fantom-testnet
+    source:
+      address: "0x9833c643f387ecFB76AA8114546AD524703c66Fb"
+      abi: Contract
+      startBlock: 12634157
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - LogAnySwapIn
+        - LogAnySwapOut
+        - LogAnySwapTradeTokensForNative
+        - LogAnySwapTradeTokensForTokens
+      abis:
+        - name: Contract
+          file: Contract/abis/Contract.json
+      eventHandlers:
+        - event: LogAnySwapIn(indexed bytes32,indexed address,indexed
+            address,uint256,uint256,uint256)
+          handler: handleLogAnySwapIn
+        - event: LogAnySwapOut(indexed address,indexed address,indexed
+            address,uint256,uint256,uint256)
+          handler: handleLogAnySwapOut
+        - event: LogAnySwapTradeTokensForNative(address[],indexed address,indexed
+            address,uint256,uint256,uint256,uint256)
+          handler: handleLogAnySwapTradeTokensForNative
+        - event: LogAnySwapTradeTokensForTokens(address[],indexed address,indexed
+            address,uint256,uint256,uint256,uint256)
+          handler: handleLogAnySwapTradeTokensForTokens
+      file: Contract/Contract.wasm
